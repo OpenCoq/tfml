@@ -5205,7 +5205,7 @@ class PreTrainedModel(nn.Module, EmbeddingAccessMixin, ModuleUtilsMixin, PushToH
 
             from kernels import Device, Mode, kernelize
 
-            mode = Mode.INFERENCE if not model.training else Mode.TRAINING
+            mode = Mode.TRAINING if model.training else Mode.INFERENCE
             kernelize(model, device=Device(type=model.device.type), mode=mode)
 
         # If it is a model with generation capabilities, attempt to load generation files (generation config,

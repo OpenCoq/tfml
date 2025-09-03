@@ -582,6 +582,14 @@ class ContinuousBatchingManager:
             if result is not None:
                 yield result
 
+    @staticmethod
+    def supported_attention_implementations() -> set[str]:
+        return {"eager_paged", "sdpa_paged", "flash_attention_2"}
+
+    @staticmethod
+    def default_attention_implementation() -> str:
+        return "sdpa_paged"
+
     @traced
     def warmup(self, batch_processor):
         stream = torch.cuda.Stream(device=self.model.device)
